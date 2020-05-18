@@ -5,7 +5,6 @@ Tests for jwt flask app.
 '''
 import os
 import json
-import pytest
 
 import main
 
@@ -14,14 +13,9 @@ TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjEzMDY3OTAsIm5iZiI6MT
 EMAIL = 'wolf@thedoor.com'
 PASSWORD = 'huff-puff'
 
-@pytest.fixture
-def client():
-    os.environ['JWT_SECRET'] = SECRET
-    main.APP.config['TESTING'] = True
-    client = main.APP.test_client()
-
-    yield client
-
+os.environ['JWT_SECRET'] = SECRET
+main.APP.config['TESTING'] = True
+client = main.APP.test_client()
 
 
 def test_health(client):
